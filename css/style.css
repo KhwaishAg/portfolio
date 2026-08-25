@@ -181,6 +181,16 @@ img { max-width: 100%; display: block; }
   cursor: pointer;
 }
 
+/* the open mobile menu needs a solid, non-blended nav bar behind it,
+   otherwise mix-blend-mode: difference on .nav blends the whole open
+   dropdown (as a group with its parent) against the hero behind it */
+.nav.menu-open {
+  mix-blend-mode: normal;
+  background: var(--bg);
+  color: var(--fg);
+  border-bottom: 1px solid var(--line-dark);
+}
+
 /* ============ HERO ============ */
 .hero {
   position: relative;

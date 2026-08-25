@@ -584,13 +584,19 @@
   function initMobileNav() {
     const toggle = document.getElementById("nav-toggle");
     const links = document.getElementById("nav-links");
+    const nav = document.querySelector(".nav");
     toggle.addEventListener("click", () => {
       const open = links.classList.toggle("mobile-open");
+      // mix-blend-mode on .nav otherwise blends the whole open dropdown
+      // (as one group with its parent) against the page behind it —
+      // turn that off while the menu is open so it's actually legible
+      nav.classList.toggle("menu-open", open);
       toggle.textContent = open ? "✕" : "☰";
     });
     links.querySelectorAll("a").forEach((a) =>
       a.addEventListener("click", () => {
         links.classList.remove("mobile-open");
+        nav.classList.remove("menu-open");
         toggle.textContent = "☰";
       })
     );
