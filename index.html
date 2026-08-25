@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Khwaish Agarwala — Software Engineer</title>
+<meta name="description" content="Portfolio of Khwaish Agarwala — full-stack developer & AI/ML builder." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- loader -->
+<div class="loader" id="loader">
+  <p class="mono" id="loader-text"></p>
+</div>
+
+<!-- grain overlay -->
+<canvas class="grain" id="grain"></canvas>
+
+<!-- scroll progress -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- cursor -->
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-label mono" id="cursor-label"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <a href="#top" class="nav-logo">KA<span class="accent">_</span></a>
+  <nav class="nav-links" id="nav-links"></nav>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="plus-texture" aria-hidden="true"></div>
+    <p class="mono kicker" id="hero-kicker"></p>
+
+    <div class="hero-main">
+      <h1 class="hero-headline" id="hero-headline"></h1>
+
+      <!-- PHOTO SLOT — drop a headshot at images/profile.jpg (same
+           folder as index.html) and it replaces this placeholder
+           automatically. Recommended: square-ish crop, 800px+. -->
+      <div class="hero-photo" data-reveal>
+        <img id="hero-photo-img" alt="" />
+        <div class="hero-photo-fallback mono" id="hero-photo-fallback">
+          <span>+</span>
+          <p>PHOTO<br>GOES<br>HERE</p>
+          <span class="hero-photo-hint">/IMAGES/PROFILE.JPG</span>
+        </div>
+        <span class="hero-photo-tag mono">.00 / IRL</span>
+      </div>
+    </div>
+
+    <div class="hero-bottom">
+      <p class="hero-sub" id="hero-sub"></p>
+      <a href="#work" class="btn-cta mono magnetic" id="hero-cta"></a>
+    </div>
+    <div class="hero-system mono" aria-hidden="true">
+      <span id="sys-coords"></span>
+      <span id="sys-status"></span>
+      <span id="sys-clock"></span>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee-strip">
+    <div class="marquee-track" id="marquee-track"></div>
+  </div>
+
+  <!-- ============ DIAGONAL RIBBON (breaks the hero/about seam) ============ -->
+  <div class="ribbon-wrap" aria-hidden="true">
+    <div class="ribbon">
+      <div class="ribbon-track" id="ribbon-track-1"></div>
+    </div>
+  </div>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="about" id="about">
+    <p class="mono section-tag" id="about-tag"></p>
+    <div class="about-grid">
+      <div class="about-visual" id="about-visual">
+        <div class="circle-outline" aria-hidden="true"></div>
+        <svg class="rings" viewBox="0 0 200 200" aria-hidden="true">
+          <circle cx="100" cy="100" r="94" />
+          <circle cx="100" cy="100" r="70" />
+          <circle cx="100" cy="100" r="46" />
+          <line x1="100" y1="6" x2="100" y2="194" />
+          <line x1="6" y1="100" x2="194" y2="100" />
+        </svg>
+        <div class="block block-a">
+          <span class="mono block-label">.01 / PROFILE</span>
+        </div>
+        <div class="block block-b">
+          <span class="mono block-label">VIT — B.TECH IT</span>
+          <span class="mono block-sub">CGPA 8.97</span>
+        </div>
+        <span class="about-crosshair mono" aria-hidden="true">+</span>
+      </div>
+      <div class="about-text">
+        <h2 class="pull-quote" id="about-quote"></h2>
+        <p class="about-body" id="about-body"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORK / PROJECTS ============ -->
+  <section class="work" id="work">
+    <p class="mono section-tag" id="work-tag"></p>
+    <div class="work-list" id="work-list"></div>
+  </section>
+
+  <!-- ============ STACK (plain, deliberately quiet) ============ -->
+  <section class="stack" id="stack">
+    <p class="mono section-tag" id="stack-tag"></p>
+    <div class="stack-groups" id="stack-groups"></div>
+  </section>
+
+  <!-- ============ PLUS GRID DIVIDER ============ -->
+  <div class="plus-divider" aria-hidden="true"></div>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="footer">
+  <a href="#" class="say-hi-cta magnetic" id="say-hi-cta">
+    <h2 class="say-hi-headline" id="footer-sayhi"></h2>
+  </a>
+  <div class="footer-top">
+    <a href="#top" class="footer-logo" data-scramble>KHWAISH<br>AGARWALA</a>
+    <div class="footer-contact mono">
+      <a id="footer-email" href="#"></a>
+      <a id="footer-github" href="#" target="_blank" rel="noopener">GITHUB ↗</a>
+      <a id="footer-linkedin" href="#" target="_blank" rel="noopener">LINKEDIN ↗</a>
+    </div>
+    <div class="footer-loc mono" id="footer-loc"></div>
+  </div>
+  <p class="mono footer-tagline" id="footer-tagline"></p>
+  <p class="mono footer-legal" id="footer-legal"></p>
+</footer>
+
+<button class="back-to-top mono" id="back-to-top" aria-label="Back to top">↑ .00</button>
+
+<script src="js/content.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
