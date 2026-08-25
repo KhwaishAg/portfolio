@@ -26,6 +26,12 @@
     cta.textContent = CONTENT.hero.cta.label;
     cta.href = CONTENT.hero.cta.href;
 
+    const resumeCta = document.getElementById("hero-resume-cta");
+    if (resumeCta && CONTENT.meta.resume) {
+      resumeCta.textContent = CONTENT.hero.resumeCta.label;
+      resumeCta.href = CONTENT.meta.resume;
+    }
+
     const track = document.getElementById("marquee-track");
     // repeat enough times to guarantee seamless loop across wide screens
     track.textContent = CONTENT.hero.marquee.repeat(6);
@@ -56,6 +62,27 @@
     document.getElementById("about-body").textContent = CONTENT.about.body;
   }
 
+  // supports the common case (item.link = repo, item.demo = live demo)
+  // plus an explicit item.links = [{label, href}] array for anything with
+  // more than two links (e.g. separate frontend/backend repos)
+  function buildWorkLinks(item) {
+    const links = [];
+    if (item.demo) links.push({ label: "LIVE ↗", href: item.demo, external: true });
+    if (item.link) {
+      const isAnchor = item.link.startsWith("#");
+      links.push({ label: isAnchor ? "VIEW ↓" : "CODE ↗", href: item.link, external: !isAnchor });
+    }
+    if (Array.isArray(item.links)) {
+      item.links.forEach((l) => links.push({ label: l.label, href: l.href, external: true }));
+    }
+    return links
+      .map(
+        (l) =>
+          `<a class="work-link mono magnetic${l.label.startsWith("LIVE") ? " work-link-demo" : ""}" href="${l.href}"${l.external ? ' target="_blank" rel="noopener"' : ""}>${l.label}</a>`
+      )
+      .join("");
+  }
+
   function renderItemList(sectionKey, tagId, listId, featureFirst) {
     const data = CONTENT[sectionKey];
     document.getElementById(tagId).textContent = data.tag;
@@ -73,11 +100,9 @@
             ${item.stack.map((s) => `<span>${s}</span>`).join("")}
           </div>
         </div>
-        ${
-          item.link
-            ? `<a class="work-link mono magnetic" href="${item.link}" target="_blank" rel="noopener">CODE ↗</a>`
-            : ""
-        }
+        <div class="work-link-group">
+          ${buildWorkLinks(item)}
+        </div>
       </div>`
       )
       .join("");
@@ -87,8 +112,18 @@
     renderItemList("experience", "experience-tag", "experience-list", true);
   }
 
+  function renderLeadership() {
+    renderItemList("leadership", "leadership-tag", "leadership-list", false);
+  }
+
+  function renderCertifications() {
+    renderItemList("certifications", "certifications-tag", "certifications-list", false);
+  }
+
   function renderProjects() {
-    renderItemList("projects", "projects-tag", "projects-list", true);
+    // no "featured" giant card here — projects render as a compact 2-col
+    // grid (see #projects-list in style.css), so every card stays the same size
+    renderItemList("projects", "projects-tag", "projects-list", false);
   }
 
   function renderStack() {
@@ -110,6 +145,7 @@
     document.getElementById("footer-email").href = `mailto:${CONTENT.meta.email}`;
     document.getElementById("footer-github").href = CONTENT.meta.github;
     document.getElementById("footer-linkedin").href = CONTENT.meta.linkedin;
+    document.getElementById("footer-leetcode").href = CONTENT.meta.leetcode;
     if (CONTENT.meta.resume) {
       document.getElementById("footer-resume").href = CONTENT.meta.resume;
     }
@@ -121,13 +157,17 @@
     const ticker = document.getElementById("footer-ticker-track");
     if (ticker) ticker.textContent = CONTENT.footer.ticker.repeat(6);
 
+    // plain text on purpose — this is a CTA, not decoration, it should
+    // never be caught mid-scramble looking broken
     const sayHi = document.getElementById("footer-sayhi");
-    sayHi.innerHTML = CONTENT.footer.sayHi
-      .map((w) => `<span data-scramble data-text="${w}">${w}</span>`)
-      .join(" ");
+    sayHi.textContent = CONTENT.footer.sayHi.join(" ");
     document.getElementById("say-hi-cta").href = `mailto:${CONTENT.meta.email}`;
 
-    document.getElementById("footer-status").textContent = CONTENT.system.status;
+    const f = CONTENT.footer.form;
+    document.getElementById("cf-name").placeholder = f.namePlaceholder;
+    document.getElementById("cf-email").placeholder = f.emailPlaceholder;
+    document.getElementById("cf-message").placeholder = f.messagePlaceholder;
+    document.getElementById("contact-submit").textContent = f.submitLabel;
   }
 
   /* ---------------- LOADER ---------------- */
@@ -186,7 +226,7 @@
   /* ---------------- LIVE CLOCK ---------------- */
 
   function initClock() {
-    const els = [document.getElementById("sys-clock"), document.getElementById("footer-clock")].filter(Boolean);
+    const els = [document.getElementById("sys-clock")].filter(Boolean);
     if (!els.length) return;
     function tick() {
       const now = new Date();
@@ -479,6 +519,66 @@
     );
   }
 
+  /* ---------------- CONTACT FORM ---------------- */
+
+  function initContactForm() {
+    const form = document.getElementById("contact-form");
+    if (!form) return;
+    const status = document.getElementById("contact-status");
+    const submitBtn = document.getElementById("contact-submit");
+    const f = CONTENT.footer.form;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("cf-name").value.trim();
+      const email = document.getElementById("cf-email").value.trim();
+      const message = document.getElementById("cf-message").value.trim();
+
+      if (!name || !email || !message) {
+        status.textContent = "FILL IN ALL THREE FIELDS FIRST.";
+        status.classList.add("error");
+        return;
+      }
+      status.classList.remove("error");
+
+      const endpoint = CONTENT.meta.formEndpoint;
+      const isRealEndpoint = endpoint && /^https:\/\//.test(endpoint);
+
+      if (!isRealEndpoint) {
+        // no backend configured — fall back to opening the visitor's email client
+        const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+        const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+        window.location.href = `mailto:${CONTENT.meta.email}?subject=${subject}&body=${body}`;
+        status.textContent = f.fallbackNote;
+        return;
+      }
+
+      const originalLabel = submitBtn.textContent;
+      submitBtn.textContent = "SENDING...";
+      submitBtn.disabled = true;
+
+      try {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { Accept: "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, message }),
+        });
+        if (res.ok) {
+          status.textContent = f.successMessage;
+          form.reset();
+        } else {
+          throw new Error("Non-OK response");
+        }
+      } catch (err) {
+        status.textContent = "COULDN'T SEND — TRY EMAILING DIRECTLY INSTEAD.";
+        status.classList.add("error");
+      } finally {
+        submitBtn.textContent = originalLabel;
+        submitBtn.disabled = false;
+      }
+    });
+  }
+
   /* ---------------- MOBILE NAV ---------------- */
 
   function initMobileNav() {
@@ -503,6 +603,8 @@
     renderHero();
     renderAbout();
     renderExperience();
+    renderLeadership();
+    renderCertifications();
     renderProjects();
     renderStack();
     renderFooter();
@@ -523,5 +625,6 @@
     initScrollSpy();
     initBackToTop();
     initParallax();
+    initContactForm();
   });
 })();

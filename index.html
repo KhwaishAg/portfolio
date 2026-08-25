@@ -62,7 +62,10 @@
 
     <div class="hero-bottom">
       <p class="hero-sub" id="hero-sub"></p>
-      <a href="#projects" class="btn-cta mono magnetic" id="hero-cta"></a>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn-cta mono magnetic" id="hero-cta"></a>
+        <a href="#" class="btn-cta-ghost mono magnetic" id="hero-resume-cta" target="_blank" rel="noopener"></a>
+      </div>
     </div>
     <div class="hero-system mono" aria-hidden="true">
       <span id="sys-coords"></span>
@@ -118,6 +121,18 @@
     <div class="work-list" id="experience-list"></div>
   </section>
 
+  <!-- ============ LEADERSHIP ============ -->
+  <section class="work work-divider" id="leadership">
+    <p class="mono section-tag" id="leadership-tag"></p>
+    <div class="work-list" id="leadership-list"></div>
+  </section>
+
+  <!-- ============ CERTIFICATIONS ============ -->
+  <section class="work work-divider" id="certifications">
+    <p class="mono section-tag" id="certifications-tag"></p>
+    <div class="work-list" id="certifications-list"></div>
+  </section>
+
   <!-- ============ PROJECTS ============ -->
   <section class="work work-divider" id="projects">
     <p class="mono section-tag" id="projects-tag"></p>
@@ -143,26 +158,46 @@
     <h2 class="say-hi-headline" id="footer-sayhi"></h2>
   </a>
 
+  <form class="contact-form mono" id="contact-form" novalidate>
+    <div class="contact-field">
+      <label for="cf-name">.01 / NAME</label>
+      <input type="text" id="cf-name" name="name" required />
+    </div>
+    <div class="contact-field">
+      <label for="cf-email">.02 / EMAIL</label>
+      <input type="email" id="cf-email" name="email" required />
+    </div>
+    <div class="contact-field">
+      <label for="cf-message">.03 / MESSAGE</label>
+      <textarea id="cf-message" name="message" rows="3" required></textarea>
+    </div>
+    <div class="contact-submit-row">
+      <button type="submit" class="btn-cta mono magnetic" id="contact-submit"></button>
+      <p class="contact-status mono" id="contact-status" role="status"></p>
+    </div>
+  </form>
+
   <div class="footer-ticker-strip">
     <div class="footer-ticker-track" id="footer-ticker-track"></div>
   </div>
 
-  <div class="footer-top">
-    <a href="#top" class="footer-logo" data-scramble>KHWAISH<br>AGARWALA</a>
-    <div class="footer-contact mono">
-      <a id="footer-email" href="#"><span class="footer-bracket">[EMAIL]</span> <span id="footer-email-text"></span></a>
-      <a id="footer-github" href="#" target="_blank" rel="noopener"><span class="footer-bracket">[GITHUB]</span> VIEW ↗</a>
-      <a id="footer-linkedin" href="#" target="_blank" rel="noopener"><span class="footer-bracket">[LINKEDIN]</span> VIEW ↗</a>
-      <a id="footer-resume" href="#" target="_blank" rel="noopener"><span class="footer-bracket">[RESUME]</span> DOWNLOAD ↓</a>
-    </div>
-    <div class="footer-status-block mono">
-      <div class="footer-loc" id="footer-loc"></div>
-      <div class="footer-status" id="footer-status"></div>
-      <div class="footer-clock" id="footer-clock"></div>
+  <div class="footer-top-row">
+    <a href="#top" class="footer-logo">KHWAISH<br>AGARWALA</a>
+
+    <div class="footer-links mono">
+      <a id="footer-email" href="#"><span id="footer-email-text"></span></a>
+      <a id="footer-github" href="#" target="_blank" rel="noopener">GITHUB</a>
+      <a id="footer-linkedin" href="#" target="_blank" rel="noopener">LINKEDIN</a>
+      <a id="footer-leetcode" href="#" target="_blank" rel="noopener">LEETCODE</a>
+      <a id="footer-resume" href="#" target="_blank" rel="noopener">RESUME</a>
     </div>
   </div>
-  <p class="mono footer-tagline" id="footer-tagline"></p>
-  <p class="mono footer-legal" id="footer-legal"></p>
+
+  <div class="footer-bottom mono">
+    <span id="footer-loc"></span>
+    <p class="footer-tagline" id="footer-tagline"></p>
+    <p class="footer-legal" id="footer-legal"></p>
+  </div>
 </footer>
 
 <button class="back-to-top mono" id="back-to-top" aria-label="Back to top">↑ .00</button>
