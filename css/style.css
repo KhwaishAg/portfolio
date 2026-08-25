@@ -98,7 +98,7 @@ img { max-width: 100%; display: block; }
 /* ---------- hero system readout ---------- */
 .hero-system {
   position: absolute;
-  top: 24px;
+  top: 96px;
   right: 32px;
   z-index: 1;
   display: flex;
@@ -109,6 +109,7 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.05em;
   opacity: 0.6;
   text-align: right;
+  max-width: 46vw;
 }
 #sys-status { color: var(--accent); }
 
@@ -540,6 +541,7 @@ img { max-width: 100%; display: block; }
   padding: 110px 32px;
 }
 .work .section-tag { color: var(--accent); }
+.work.work-divider { border-top: 1px solid var(--line-dark); padding-top: 90px; }
 .work-list {
   display: flex;
   flex-direction: column;
@@ -700,10 +702,16 @@ img { max-width: 100%; display: block; }
 .back-to-top:hover { background: var(--accent); }
 
 /* ---------- say hi footer cta ---------- */
+.footer-tag {
+  text-align: center;
+  display: block;
+  margin: 0 auto 0;
+  width: fit-content;
+}
 .say-hi-cta {
   display: block;
   text-align: center;
-  padding: 60px 0 50px;
+  padding: 30px 0 40px;
   will-change: transform;
 }
 .say-hi-headline {
@@ -723,8 +731,28 @@ img { max-width: 100%; display: block; }
 .footer {
   background: var(--bg);
   color: var(--fg);
-  padding: 20px 32px 30px;
+  padding: 60px 32px 30px;
 }
+
+.footer-ticker-strip {
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid var(--line-dark);
+  border-bottom: 1px solid var(--line-dark);
+  padding: 10px 0;
+  margin-bottom: 40px;
+}
+.footer-ticker-track {
+  display: inline-block;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  animation: marquee 16s linear infinite;
+  padding-left: 100%;
+}
+
 .footer-top {
   display: flex;
   flex-wrap: wrap;
@@ -742,10 +770,21 @@ img { max-width: 100%; display: block; }
 .footer-contact {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   font-size: 13px;
 }
-.footer-contact a { position: relative; width: fit-content; }
+.footer-contact a {
+  position: relative;
+  width: fit-content;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.footer-bracket {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+}
 .footer-contact a::after {
   content: "";
   position: absolute; left: 0; bottom: -2px;
@@ -756,11 +795,19 @@ img { max-width: 100%; display: block; }
   transition: transform .2s;
 }
 .footer-contact a:hover::after { transform: scaleX(1); transform-origin: left; }
-.footer-loc {
-  font-size: 12px;
+
+.footer-status-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  font-size: 11px;
   opacity: 0.6;
   align-self: flex-end;
+  text-align: right;
 }
+.footer-status { color: var(--accent); opacity: 1; }
+
 .footer-tagline {
   font-size: 11px;
   letter-spacing: 0.06em;

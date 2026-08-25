@@ -19,12 +19,14 @@ const CONTENT = {
     // index.html) — until it exists the frame shows a placeholder instead
     photo: "images/profile.jpg",
     photoAlt: "Khwaish Agarwala",
+    resume: "files/resume.pdf",
   },
 
   nav: [
-    { label: "WORK", href: "#work" },
-    { label: "STACK", href: "#stack" },
     { label: "ABOUT", href: "#about" },
+    { label: "EXPERIENCE", href: "#experience" },
+    { label: "PROJECTS", href: "#projects" },
+    { label: "STACK", href: "#stack" },
     { label: "CONTACT", href: "#footer" },
   ],
 
@@ -41,7 +43,7 @@ const CONTENT = {
     // one word per line, rendered huge. keep it short.
     words: ["CODE", "BREAK", "SHIP"],
     sub: "Full-stack developer & AI/ML tinkerer building things that actually go live — not just Figma files.",
-    cta: { label: "VIEW WORK →", href: "#work" },
+    cta: { label: "VIEW WORK →", href: "#projects" },
     marquee: "OPEN TO OPPORTUNITIES  ✦  FULL-STACK  ✦  AI / ML  ✦  VIT '27  ✦  ",
     ribbon: "SCROLL FOR PROOF ✦ NOT JUST A RESUME ✦ ",
   },
@@ -60,9 +62,10 @@ const CONTENT = {
     body: "Currently a B.Tech IT student at VIT (CGPA 8.97), interning as a Software Development Intern at Threds, and Vice Chairperson of IEEE TEMS VIT. I build across the stack — React/Node on the frontend and backend, LangGraph/LLMs and scikit-learn on the AI side — and I'd rather ship something rough than polish something invisible.",
   },
 
-  // ---- EXPERIENCE + PROJECTS (numbered feature list) ----
-  work: {
-    tag: ".02 — EXPERIENCE / WORK",
+  // ---- EXPERIENCE (jobs, leadership, certifications — anything that isn't
+  // a shippable project lives here) ----
+  experience: {
+    tag: ".02 — EXPERIENCE",
     items: [
       {
         num: ".01",
@@ -74,30 +77,6 @@ const CONTENT = {
       },
       {
         num: ".02",
-        title: "NUTRITRACK",
-        meta: "FULL-STACK NUTRITION PLATFORM",
-        body: "Full-stack nutrition tracking platform with 6+ core features — calorie tracking, water intake, diet goals, nutritionist appointment booking. RESTful APIs across 4+ MongoDB collections.",
-        stack: ["MONGODB", "EXPRESS", "ANGULARJS", "NODE.JS"],
-        link: null,
-      },
-      {
-        num: ".03",
-        title: "SAFETRAIL",
-        meta: "AI-POWERED TRAVEL SAFETY COMPANION",
-        body: "Analyzes geospatial data with K-Means clustering to flag high-risk areas. Integrated Google Maps + Directions APIs to route around danger zones and visualize safety on interactive maps.",
-        stack: ["NEXT.JS", "TYPESCRIPT", "SCIKIT-LEARN", "GOOGLE MAPS API", "MONGODB"],
-        link: "https://github.com/KhwaishAg",
-      },
-      {
-        num: ".04",
-        title: "SYNAPSE",
-        meta: "AI-DRIVEN DELIVERY ISSUE RESOLUTION",
-        body: "Logistics monitoring system that detects delays, route deviations, and failed deliveries. LLM-based multi-step workflows via LangGraph auto-classify issues and draft resolutions.",
-        stack: ["PYTHON", "LANGGRAPH", "LLM APIS"],
-        link: "https://github.com/KhwaishAg",
-      },
-      {
-        num: ".05",
         title: "IEEE TEMS VIT — VICE CHAIRPERSON",
         meta: "DEC 2025 — PRESENT",
         body: "Run operations and strategy for a 100+ member chapter, coordinating 4+ teams to organize 5+ technical events. Previously mentored 30+ students on AI/ML fundamentals as Editorial Mentor.",
@@ -105,7 +84,7 @@ const CONTENT = {
         link: null,
       },
       {
-        num: ".06",
+        num: ".03",
         title: "GENAI, SMARTBRIDGE",
         meta: "CERTIFICATION",
         body: "Hands-on program on generative AI, prompt engineering, and LLMs, plus ethical AI practice — certified through Google Developers.",
@@ -115,20 +94,56 @@ const CONTENT = {
     ],
   },
 
+  // ---- PROJECTS — add more entries here any time, same shape each time.
+  // "link" is optional; leave it null if there's nothing to point to yet. ----
+  projects: {
+    tag: ".03 — PROJECTS",
+    items: [
+      {
+        num: ".01",
+        title: "NUTRITRACK",
+        meta: "FULL-STACK NUTRITION PLATFORM",
+        body: "Full-stack nutrition tracking platform with 6+ core features — calorie tracking, water intake, diet goals, nutritionist appointment booking. RESTful APIs across 4+ MongoDB collections.",
+        stack: ["MONGODB", "EXPRESS", "ANGULARJS", "NODE.JS"],
+        link: null,
+      },
+      {
+        num: ".02",
+        title: "SAFETRAIL",
+        meta: "AI-POWERED TRAVEL SAFETY COMPANION",
+        body: "Analyzes geospatial data with K-Means clustering to flag high-risk areas. Integrated Google Maps + Directions APIs to route around danger zones and visualize safety on interactive maps.",
+        stack: ["NEXT.JS", "TYPESCRIPT", "SCIKIT-LEARN", "GOOGLE MAPS API", "MONGODB"],
+        link: "https://github.com/KhwaishAg",
+      },
+      {
+        num: ".03",
+        title: "SYNAPSE",
+        meta: "AI-DRIVEN DELIVERY ISSUE RESOLUTION",
+        body: "Logistics monitoring system that detects delays, route deviations, and failed deliveries. LLM-based multi-step workflows via LangGraph auto-classify issues and draft resolutions.",
+        stack: ["PYTHON", "LANGGRAPH", "LLM APIS"],
+        link: "https://github.com/KhwaishAg",
+      },
+    ],
+  },
+
   // ---- STACK (deliberately plain, contrast against the loud hero) ----
+  // grouped by what kind of thing it is, not just dumped in one bucket
   stack: {
-    tag: ".03 — STACK",
+    tag: ".04 — STACK",
     groups: [
       { label: "LANGUAGES", items: ["Python", "C++", "C", "Java", "SQL", "JavaScript", "C#/.NET", "R"] },
-      { label: "WEB", items: ["React", "Node.js", "Express.js", "AngularJS", "jQuery", "HTML/CSS", "Bootstrap"] },
+      { label: "WEB & FRAMEWORKS", items: ["React", "Node.js", "Express.js", "AngularJS", "jQuery", "HTML/CSS", "Bootstrap"] },
       { label: "AI / ML", items: ["Machine Learning", "Generative AI", "LLMs", "LangGraph", "Scikit-learn", "K-Means Clustering"] },
-      { label: "DATA & CLOUD", items: ["MongoDB", "MySQL", "SQLite", "Supabase", "Prisma", "PostgreSQL", "AWS", "Azure", "Hadoop", "Spark", "Hive"] },
-      { label: "TOOLS", items: ["Git", "GitHub", "Postman", "Linux", "REST APIs", "DSA", "OOP"] },
+      { label: "DATABASES & CLOUD", items: ["MongoDB", "MySQL", "SQLite", "Supabase", "Prisma", "PostgreSQL", "AWS", "Azure", "Hadoop", "Spark", "Hive"] },
+      { label: "CS FUNDAMENTALS", items: ["Data Structures & Algorithms", "Object-Oriented Programming", "REST APIs"] },
+      { label: "TOOLS", items: ["Git", "GitHub", "Postman", "Linux"] },
     ],
   },
 
   footer: {
+    tag: ".05 — LET'S TALK",
     sayHi: ["LET'S", "TALK"],
+    ticker: "ALWAYS SHIPPING ✦ OPEN TO INTERNSHIPS ✦ REPLIES FAST ✦ ",
     tagline: "BUILT WITH COFFEE, CHAOS, AND TOO MANY BROWSER TABS.",
     legal: "© 2026 KHWAISH AGARWALA. ALL RIGHTS RESERVED.",
   },

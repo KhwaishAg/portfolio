@@ -56,13 +56,14 @@
     document.getElementById("about-body").textContent = CONTENT.about.body;
   }
 
-  function renderWork() {
-    document.getElementById("work-tag").textContent = CONTENT.work.tag;
-    const list = document.getElementById("work-list");
-    list.innerHTML = CONTENT.work.items
+  function renderItemList(sectionKey, tagId, listId, featureFirst) {
+    const data = CONTENT[sectionKey];
+    document.getElementById(tagId).textContent = data.tag;
+    const list = document.getElementById(listId);
+    list.innerHTML = data.items
       .map(
         (item, idx) => `
-      <div class="work-item${idx === 0 ? " featured" : ""}" data-reveal data-cursor-hover="VIEW">
+      <div class="work-item${featureFirst && idx === 0 ? " featured" : ""}" data-reveal data-cursor-hover="VIEW">
         <span class="work-num mono">${item.num}</span>
         <div class="work-body">
           <h3>${item.title}</h3>
@@ -82,6 +83,14 @@
       .join("");
   }
 
+  function renderExperience() {
+    renderItemList("experience", "experience-tag", "experience-list", true);
+  }
+
+  function renderProjects() {
+    renderItemList("projects", "projects-tag", "projects-list", true);
+  }
+
   function renderStack() {
     document.getElementById("stack-tag").textContent = CONTENT.stack.tag;
     const groups = document.getElementById("stack-groups");
@@ -97,20 +106,28 @@
   }
 
   function renderFooter() {
-    const email = document.getElementById("footer-email");
-    email.textContent = CONTENT.meta.email.toUpperCase();
-    email.href = `mailto:${CONTENT.meta.email}`;
+    document.getElementById("footer-email-text").textContent = CONTENT.meta.email.toUpperCase();
+    document.getElementById("footer-email").href = `mailto:${CONTENT.meta.email}`;
     document.getElementById("footer-github").href = CONTENT.meta.github;
     document.getElementById("footer-linkedin").href = CONTENT.meta.linkedin;
+    if (CONTENT.meta.resume) {
+      document.getElementById("footer-resume").href = CONTENT.meta.resume;
+    }
     document.getElementById("footer-loc").textContent = CONTENT.meta.location;
     document.getElementById("footer-tagline").textContent = CONTENT.footer.tagline;
     document.getElementById("footer-legal").textContent = CONTENT.footer.legal;
+    document.getElementById("footer-tag").textContent = CONTENT.footer.tag;
+
+    const ticker = document.getElementById("footer-ticker-track");
+    if (ticker) ticker.textContent = CONTENT.footer.ticker.repeat(6);
 
     const sayHi = document.getElementById("footer-sayhi");
     sayHi.innerHTML = CONTENT.footer.sayHi
       .map((w) => `<span data-scramble data-text="${w}">${w}</span>`)
       .join(" ");
     document.getElementById("say-hi-cta").href = `mailto:${CONTENT.meta.email}`;
+
+    document.getElementById("footer-status").textContent = CONTENT.system.status;
   }
 
   /* ---------------- LOADER ---------------- */
@@ -169,10 +186,12 @@
   /* ---------------- LIVE CLOCK ---------------- */
 
   function initClock() {
-    const el = document.getElementById("sys-clock");
+    const els = [document.getElementById("sys-clock"), document.getElementById("footer-clock")].filter(Boolean);
+    if (!els.length) return;
     function tick() {
       const now = new Date();
-      el.textContent = "T+ " + now.toTimeString().slice(0, 8) + " IST";
+      const text = "T+ " + now.toTimeString().slice(0, 8) + " IST";
+      els.forEach((el) => (el.textContent = text));
     }
     tick();
     setInterval(tick, 1000);
@@ -284,10 +303,15 @@
   /* ---------------- MARQUEE PAUSE ON HOVER ---------------- */
 
   function initMarqueePause() {
-    const strip = document.querySelector(".marquee-strip");
-    const track = document.getElementById("marquee-track");
-    strip.addEventListener("mouseenter", () => (track.style.animationPlayState = "paused"));
-    strip.addEventListener("mouseleave", () => (track.style.animationPlayState = "running"));
+    const pairs = [
+      [document.querySelector(".marquee-strip"), document.getElementById("marquee-track")],
+      [document.querySelector(".footer-ticker-strip"), document.getElementById("footer-ticker-track")],
+    ];
+    pairs.forEach(([strip, track]) => {
+      if (!strip || !track) return;
+      strip.addEventListener("mouseenter", () => (track.style.animationPlayState = "paused"));
+      strip.addEventListener("mouseleave", () => (track.style.animationPlayState = "running"));
+    });
   }
 
   /* ---------------- FILM GRAIN ---------------- */
@@ -478,7 +502,8 @@
     renderNav();
     renderHero();
     renderAbout();
-    renderWork();
+    renderExperience();
+    renderProjects();
     renderStack();
     renderFooter();
 

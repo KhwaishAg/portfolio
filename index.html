@@ -62,7 +62,7 @@
 
     <div class="hero-bottom">
       <p class="hero-sub" id="hero-sub"></p>
-      <a href="#work" class="btn-cta mono magnetic" id="hero-cta"></a>
+      <a href="#projects" class="btn-cta mono magnetic" id="hero-cta"></a>
     </div>
     <div class="hero-system mono" aria-hidden="true">
       <span id="sys-coords"></span>
@@ -112,10 +112,16 @@
     </div>
   </section>
 
-  <!-- ============ WORK / PROJECTS ============ -->
-  <section class="work" id="work">
-    <p class="mono section-tag" id="work-tag"></p>
-    <div class="work-list" id="work-list"></div>
+  <!-- ============ EXPERIENCE ============ -->
+  <section class="work" id="experience">
+    <p class="mono section-tag" id="experience-tag"></p>
+    <div class="work-list" id="experience-list"></div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section class="work work-divider" id="projects">
+    <p class="mono section-tag" id="projects-tag"></p>
+    <div class="work-list" id="projects-list"></div>
   </section>
 
   <!-- ============ STACK (plain, deliberately quiet) ============ -->
@@ -131,17 +137,29 @@
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer" id="footer">
+  <p class="mono section-tag footer-tag" id="footer-tag"></p>
+
   <a href="#" class="say-hi-cta magnetic" id="say-hi-cta">
     <h2 class="say-hi-headline" id="footer-sayhi"></h2>
   </a>
+
+  <div class="footer-ticker-strip">
+    <div class="footer-ticker-track" id="footer-ticker-track"></div>
+  </div>
+
   <div class="footer-top">
     <a href="#top" class="footer-logo" data-scramble>KHWAISH<br>AGARWALA</a>
     <div class="footer-contact mono">
-      <a id="footer-email" href="#"></a>
-      <a id="footer-github" href="#" target="_blank" rel="noopener">GITHUB ↗</a>
-      <a id="footer-linkedin" href="#" target="_blank" rel="noopener">LINKEDIN ↗</a>
+      <a id="footer-email" href="#"><span class="footer-bracket">[EMAIL]</span> <span id="footer-email-text"></span></a>
+      <a id="footer-github" href="#" target="_blank" rel="noopener"><span class="footer-bracket">[GITHUB]</span> VIEW ↗</a>
+      <a id="footer-linkedin" href="#" target="_blank" rel="noopener"><span class="footer-bracket">[LINKEDIN]</span> VIEW ↗</a>
+      <a id="footer-resume" href="#" target="_blank" rel="noopener"><span class="footer-bracket">[RESUME]</span> DOWNLOAD ↓</a>
     </div>
-    <div class="footer-loc mono" id="footer-loc"></div>
+    <div class="footer-status-block mono">
+      <div class="footer-loc" id="footer-loc"></div>
+      <div class="footer-status" id="footer-status"></div>
+      <div class="footer-clock" id="footer-clock"></div>
+    </div>
   </div>
   <p class="mono footer-tagline" id="footer-tagline"></p>
   <p class="mono footer-legal" id="footer-legal"></p>
